@@ -5,7 +5,7 @@ import List.Extra
 
 toNumberList : String -> List Int
 toNumberList =
-    String.toList >> List.filterMap (List.singleton >> String.fromList >> String.toInt >> Result.toMaybe)
+    String.toList >> List.filterMap (String.fromChar >> String.toInt >> Result.toMaybe)
 
 
 spinl : Int -> List a -> List a
