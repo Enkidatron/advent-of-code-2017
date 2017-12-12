@@ -5,6 +5,9 @@ import Set exposing (Set)
 import Graph exposing (..)
 
 
+-- Original Part 1:
+
+
 parseInput : String -> Dict String (List String)
 parseInput =
     String.lines
@@ -46,6 +49,10 @@ getNetworkHelper alreadyFound from dict =
 
         Nothing ->
             []
+
+
+
+-- Part 2
 
 
 parseLineIntTokens tokens =
@@ -90,6 +97,28 @@ countGroups graph =
 part2 =
     makeGraph
         >> countGroups
+
+
+
+-- Part 1 with graphs:
+
+
+findGraphWithNode nodeId graph =
+    case Graph.stronglyConnectedComponents graph of
+        Ok _ ->
+            graph
+
+        Err subgraphs ->
+            subgraphs
+                |> List.filter (Graph.member nodeId)
+                |> List.head
+                |> Maybe.withDefault Graph.empty
+
+
+part1WithGraphs =
+    makeGraph
+        >> findGraphWithNode 0
+        >> Graph.size
 
 
 testInput =
