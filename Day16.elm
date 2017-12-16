@@ -16,10 +16,10 @@ testStart =
 
 spin amount list =
     let
-        -- safe version:
-        -- (List.length list - amount) % (List.length list)
+        -- safe version: ( I tried `16 - amount` in order to speed things up during part2,
+        -- but it made little difference)
         spinAmount =
-            16 - amount
+            (List.length list - amount) % (List.length list)
     in
         (List.drop spinAmount list) ++ (List.take spinAmount list)
 
@@ -114,6 +114,7 @@ testInput =
 
 
 
+-- This would have worked, if I had thought of cycles.
 --part2 list =
 --    parseInput >> repeatDance 1000000000 list >> String.join ""
 --repeatDance repeat list danceMoves =
@@ -121,6 +122,8 @@ testInput =
 --        list
 --    else
 --        repeatDance (repeat - 1) (List.foldl doStep list danceMoves) danceMoves
+-- All of this was an attempt to make the individual dances faster so that I could run 1 billion of them.
+-- It's not appreciably faster than the part1 versions
 
 
 start2 =
@@ -195,12 +198,20 @@ billion =
     1000000000
 
 
+
+-- it turns out my dancers have a cycle length of 36.
+
+
 dances =
     billion % 36
 
 
 stepsInDance =
     List.length danceMoves
+
+
+
+--written this way so that it doesn't actually run this every time the repl loads the file.
 
 
 part2 _ =
@@ -212,7 +223,7 @@ part2 _ =
         |> Maybe.withDefault "?"
 
 
-cycleLength () =
+cycleLength _ =
     indexedProgramStream
         |> Stream.next
         |> Tuple.first
