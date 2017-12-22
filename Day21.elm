@@ -66,10 +66,11 @@ part2stream input =
             |> Maybe.map getLiveCount
 
 
-streamDrop toDrop =
-    Stream.zip Stream.naturalNumbers
-        >> Stream.dropWhile (Tuple.first >> (\index -> index <= toDrop))
-        >> Stream.map Tuple.second
+streamDrop toDrop stream =
+    if toDrop <= 0 then
+        stream
+    else
+        streamDrop (toDrop - 1) <| Tuple.first <| Stream.next stream
 
 
 parseRules input =
