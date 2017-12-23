@@ -4,7 +4,6 @@ import Parser exposing (..)
 import Array exposing (..)
 import Dict exposing (..)
 import Char
-import List.Extra
 import Arithmetic
 
 
@@ -270,6 +269,10 @@ h =
 
 isNotPrime =
     Arithmetic.isPrime >> not
+
+
+
+-- Ths stuff above is for part2.
 
 
 part1 : String -> Int
