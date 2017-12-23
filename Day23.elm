@@ -191,7 +191,7 @@ jnz 1 -23
 """
 
 
-normalPseudo =
+pseudo =
     """
 b = 65
 c = b (65)
@@ -203,6 +203,7 @@ if a /= 0
 LABEL B
 f = 1
 d = 2
+LABEL C
 e = 2
 label A
 //do
@@ -217,12 +218,13 @@ g = e
 g -= b
 if g /= 0
     GOTO A
+//while e /= b
 d += 1
 g = d
 g -= b
 if g /= 0
-    GOTO A
-//while e /= b
+    GOTO C
+// while d /= b
 if f == 0
     h += 1
 g = b
